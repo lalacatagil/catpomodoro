@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Pomodoro Anime Cat 💙🐱</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #1a237e, #3949ab, #7e57c2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Segoe UI", sans-serif;
+    color: #fff;
+  }
+
+  .card {
+    width: 360px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    border-radius: 30px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  }
+
+  h1 {
+    margin-top: 0;
+    font-size: 1.7em;
+    color: #e3f2fd;
+  }
+
+  .cat-img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #b39ddb;
+    margin: 10px 0;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .mode {
+    margin-top: 10px;
+    font-size: 1.1em;
+    color: #bbdefb;
+  }
+
+  .timer {
+    font-size: 3em;
+    font-weight: bold;
+    margin: 15px 0;
+  }
+
+  .selectors {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+  }
+
+  .selectors div {
+    width: 48%;
+  }
+
+  label {
+    font-size: 0.85em;
+    color: #d1c4e9;
+  }
+
+  select {
+    width: 100%;
+    padding: 6px;
+    border-radius: 15px;
+    border: none;
+    margin-top: 5px;
+    text-align: center;
+    font-size: 0.9em;
+    background: #e3f2fd;
+    color: #1a237e;
+  }
+
+  button {
+    background: #5c6bc0;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 16px;
+    margin: 6px;
+    color: #fff;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  button:hover {
+    background: #7986cb;
+    transform: scale(1.05);
+  }
+
+  .paws {
+    margin-top: 12px;
+    font-size: 22px;
+    opacity: 0.85;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Pomodoro Anime Cat</h1>
+
+  <!-- Imagen anime de gato -->
+  <img
+    id="catImage"
+    class="cat-img"
+    src="data:image/jpeg;base64,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"
+    alt="Anime Cat"
+  >
+
+  <div class="mode" id="mode">Tiempo de trabajo</div>
+  <div class="timer" id="timer">25:00</div>
+
+  <div class="selectors">
+    <div>
+      <label>Trabajo (min)</label>
+      <select id="workSelect">
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25" selected>25</option>
+        <option value="30">30</option>
+        <option value="45">45</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Descanso (min)</label>
+      <select id="breakSelect">
+        <option value="5" selected>5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+      </select>
+    </div>
+  </div>
+
+  <div>
+    <button onclick="startTimer()">▶ Iniciar</button>
+    <button onclick="pauseTimer()">⏸ Pausar</button>
+    <button onclick="resetTimer()">⟲ Reiniciar</button>
+  </div>
+
+  <div class="paws">🐾 🐾 🐾</div>
+</div>
+
+<script>
+  let interval;
+  let isRunning = false;
+  let isWork = true;
+  let timeLeft = 25 * 60;
+
+  const timerEl = document.getElementById("timer");
+  const modeEl = document.getElementById("mode");
+  const workSelect = document.getElementById("workSelect");
+  const breakSelect = document.getElementById("breakSelect");
+  const catImage = document.getElementById("catImage");
+
+  const workCat = "https://i.imgur.com/6X4V6wX.png";
+  const breakCat = "https://i.imgur.com/D4aH8qK.png";
+
+  function updateDisplay() {
+    const min = Math.floor(timeLeft / 60);
+    const sec = timeLeft % 60;
+    timerEl.textContent =
+      String(min).padStart(2, "0") + ":" +
+      String(sec).padStart(2, "0");
+  }
+
+  function startTimer() {
+    if (isRunning) return;
+
+    if (timeLeft === 0 || !interval) {
+      timeLeft = (isWork ? workSelect.value : breakSelect.value) * 60;
+      updateDisplay();
+    }
+
+    isRunning = true;
+    interval = setInterval(() => {
+      if (timeLeft > 0) {
+        timeLeft--;
+        updateDisplay();
+      } else {
+        switchMode();
+      }
+    }, 1000);
+  }
+
+  function pauseTimer() {
+    isRunning = false;
+    clearInterval(interval);
+  }
+
+  function resetTimer() {
+    pauseTimer();
+    isWork = true;
+    timeLeft = workSelect.value * 60;
+    modeEl.textContent = "Tiempo de trabajo";
+    catImage.src = workCat;
+    updateDisplay();
+  }
+
+  function switchMode() {
+    isWork = !isWork;
+    timeLeft = (isWork ? workSelect.value : breakSelect.value) * 60;
+    modeEl.textContent = isWork ? "Tiempo de trabajo" : "Descanso gatuno 💙";
+    catImage.src = isWork ? workCat : breakCat;
+    updateDisplay();
+  }
+
+  workSelect.addEventListener("change", resetTimer);
+  breakSelect.addEventListener("change", resetTimer);
+
+  updateDisplay();
+</script>
+
+</body>
+</html>
