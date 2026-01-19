@@ -1,233 +1,103 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Pomodoro Anime Cat 💙</title>
+    <meta charset="UTF-8">
+    <title>Pomodoro Anime Cat</title>
 
-<style>
-  body {
-    margin: 0;
-    height: 100vh;
-    background: linear-gradient(135deg, #1a237e, #3949ab, #7e57c2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: "Segoe UI", sans-serif;
-    color: #fff;
-  }
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #3a3f9e, #2a2f7a);
+            font-family: Arial, sans-serif;
+            color: white;
+        }
 
-  .card {
-    width: 360px;
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(12px);
-    border-radius: 30px;
-    padding: 25px;
-    text-align: center;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  }
+        .card {
+            background: #4f5db8;
+            padding: 30px;
+            border-radius: 25px;
+            width: 320px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
 
-  h1 {
-    margin-top: 0;
-    font-size: 1.7em;
-    color: #e3f2fd;
-  }
+        .cat-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 15px 0;
+            border: 3px solid #c8b6ff;
+        }
 
-  .cat-img {
-    width: 160px;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 4px solid #b39ddb;
-    margin: 10px 0;
-    animation: float 3s ease-in-out infinite;
-  }
+        .label {
+            margin-top: 10px;
+            font-size: 16px;
+        }
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
-  }
+        #timer {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
 
-  .mode {
-    margin-top: 10px;
-    font-size: 1.1em;
-    color: #bbdefb;
-  }
+        button {
+            background: #c8b6ff;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-  .timer {
-    font-size: 3em;
-    font-weight: bold;
-    margin: 15px 0;
-  }
-
-  .selectors {
-    display: flex;
-    justify-content: space-between;
-    margin: 15px 0;
-  }
-
-  .selectors div {
-    width: 48%;
-  }
-
-  label {
-    font-size: 0.85em;
-    color: #d1c4e9;
-  }
-
-  select {
-    width: 100%;
-    padding: 6px;
-    border-radius: 15px;
-    border: none;
-    margin-top: 5px;
-    text-align: center;
-    font-size: 0.9em;
-    background: #e3f2fd;
-    color: #1a237e;
-  }
-
-  button {
-    background: #5c6bc0;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 16px;
-    margin: 6px;
-    color: #fff;
-    font-size: 0.9em;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
-  }
-
-  button:hover {
-    background: #7986cb;
-    transform: scale(1.05);
-  }
-
-  .paws {
-    margin-top: 12px;
-    font-size: 22px;
-    opacity: 0.85;
-  }
-</style>
+        button:hover {
+            background: #b39ddb;
+        }
+    </style>
 </head>
-
 <body>
 
 <div class="card">
-  <h1>Pomodoro Anime Cat</h1>
+    <h1>Pomodoro Anime Cat</h1>
 
-  <!-- Imagen desde GitHub -->
-  <img
-    id="catImage"
-    class="cat-img"
-    src="https://raw.githubusercontent.com/TU_USUARIO/TU_REPO/main/assets/5656.jfif"
-    alt="Anime Cat"
-  >
+    <!-- IMAGEN -->
+    <img src="5656.jfif" alt="Anime Cat" class="cat-img">
 
-  <div class="mode" id="mode">Tiempo de trabajo</div>
-  <div class="timer" id="timer">25:00</div>
+    <p class="label">Tiempo de trabajo</p>
+    <div id="timer">25:00</div>
 
-  <div class="selectors">
-    <div>
-      <label>Trabajo (min)</label>
-      <select id="workSelect">
-        <option value="15">15</option>
-        <option value="20">20</option>
-        <option value="25" selected>25</option>
-        <option value="30">30</option>
-        <option value="45">45</option>
-      </select>
-    </div>
-
-    <div>
-      <label>Descanso (min)</label>
-      <select id="breakSelect">
-        <option value="5" selected>5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-      </select>
-    </div>
-  </div>
-
-  <div>
-    <button onclick="startTimer()">▶ Iniciar</button>
-    <button onclick="pauseTimer()">⏸ Pausar</button>
-    <button onclick="resetTimer()">⟲ Reiniciar</button>
-  </div>
-
-  <div class="paws">🐾 🐾 🐾</div>
+    <button onclick="startTimer()">Iniciar</button>
 </div>
 
 <script>
-  let interval;
-  let isRunning = false;
-  let isWork = true;
-  let timeLeft = 25 * 60;
+    let time = 25 * 60;
+    let interval;
 
-  const timerEl = document.getElementById("timer");
-  const modeEl = document.getElementById("mode");
-  const workSelect = document.getElementById("workSelect");
-  const breakSelect = document.getElementById("breakSelect");
-  const catImage = document.getElementById("catImage");
+    function startTimer() {
+        if (interval) return;
 
-  // Imagen desde GitHub
-  const workCat = "https://raw.githubusercontent.com/TU_USUARIO/TU_REPO/main/assets/5656.jfif";
-  const breakCat = "https://raw.githubusercontent.com/TU_USUARIO/TU_REPO/main/assets/5656.jfif";
+        interval = setInterval(() => {
+            let minutes = Math.floor(time / 60);
+            let seconds = time % 60;
 
-  function updateDisplay() {
-    const min = Math.floor(timeLeft / 60);
-    const sec = timeLeft % 60;
-    timerEl.textContent =
-      String(min).padStart(2, "0") + ":" +
-      String(sec).padStart(2, "0");
-  }
+            document.getElementById("timer").innerText =
+                `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 
-  function startTimer() {
-    if (isRunning) return;
+            time--;
 
-    if (timeLeft === 0 || !interval) {
-      timeLeft = (isWork ? workSelect.value : breakSelect.value) * 60;
-      updateDisplay();
+            if (time < 0) {
+                clearInterval(interval);
+                interval = null;
+                alert("¡Tiempo terminado!");
+            }
+        }, 1000);
     }
-
-    isRunning = true;
-    interval = setInterval(() => {
-      if (timeLeft > 0) {
-        timeLeft--;
-        updateDisplay();
-      } else {
-        switchMode();
-      }
-    }, 1000);
-  }
-
-  function pauseTimer() {
-    isRunning = false;
-    clearInterval(interval);
-  }
-
-  function resetTimer() {
-    pauseTimer();
-    isWork = true;
-    timeLeft = workSelect.value * 60;
-    modeEl.textContent = "Tiempo de trabajo";
-    catImage.src = workCat;
-    updateDisplay();
-  }
-
-  function switchMode() {
-    isWork = !isWork;
-    timeLeft = (isWork ? workSelect.value : breakSelect.value) * 60;
-    modeEl.textContent = isWork ? "Tiempo de trabajo" : "Descanso gatuno 💙";
-    catImage.src = isWork ? workCat : breakCat;
-    updateDisplay();
-  }
-
-  workSelect.addEventListener("change", resetTimer);
-  breakSelect.addEventListener("change", resetTimer);
-
-  updateDisplay();
 </script>
 
 </body>
 </html>
+
