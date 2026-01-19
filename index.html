@@ -33,14 +33,15 @@
   }
 
   .cat-img {
-    width: 160px;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 4px solid #b39ddb;
-    margin: 10px 0;
-    animation: float 3s ease-in-out infinite;
-  }
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 4px solid #b39ddb;
+  object-fit: contain;
+  background: rgba(255,255,255,0.15);
+  padding: 12px;
+  animation: float 3s ease-in-out infinite;
+}
 
   @keyframes float {
     0%, 100% { transform: translateY(0); }
@@ -231,6 +232,7 @@
 
 </body>
 </html>
+
 
 
 
